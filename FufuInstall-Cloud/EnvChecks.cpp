@@ -99,14 +99,14 @@ bool InstallDotNet8SDK() {
 
     if (result == IDYES) {
         LogMessage(L"正在通过winget安装.NET 8 SDK...");
-        LogMessage(L"安装命令: cmd /c winget install Microsoft.DotNet.SDK.8 --accept-source-agreements --accept-package-agreements");
+        LogMessage(L"安装命令: cmd /c winget install Microsoft.DotNet.SDK.8 --accept-source-agreements --accept-package-agreements --source winget");
 
         SHELLEXECUTEINFOW sei = { sizeof(sei) };
         sei.fMask = SEE_MASK_NOCLOSEPROCESS; // 需等待安装完成
         sei.hwnd = g_hMainWnd;
         sei.lpVerb = L"runas"; // 以管理员权限运行
         sei.lpFile = L"cmd.exe";
-        sei.lpParameters = L"/c winget install Microsoft.DotNet.SDK.8 --accept-source-agreements --accept-package-agreements";
+        sei.lpParameters = L"/c winget install Microsoft.DotNet.SDK.8 --accept-source-agreements --accept-package-agreements --source winget";
         sei.nShow = SW_SHOW;
 
         if (ShellExecuteExW(&sei)) {
@@ -143,14 +143,14 @@ bool InstallWebview2() {
 
     if (result == IDYES) {
         LogMessage(L"正在通过 winget 安装 WebView2 运行时...");
-        LogMessage(L"安装命令: cmd /c winget install --id Microsoft.EdgeWebView2Runtime -e --accept-source-agreements --accept-package-agreements");
+        LogMessage(L"安装命令: cmd /c winget install --id Microsoft.EdgeWebView2Runtime -e --accept-source-agreements --accept-package-agreements --source winget");
 
         SHELLEXECUTEINFOW sei = { sizeof(sei) };
         sei.fMask = SEE_MASK_NOCLOSEPROCESS;
         sei.hwnd = g_hMainWnd;
         sei.lpVerb = L"runas";
         sei.lpFile = L"cmd.exe";
-        sei.lpParameters = L"/c winget install --id Microsoft.EdgeWebView2Runtime -e --accept-source-agreements --accept-package-agreements";
+        sei.lpParameters = L"/c winget install --id Microsoft.EdgeWebView2Runtime -e --accept-source-agreements --accept-package-agreements --source winget";
         sei.nShow = SW_SHOW;
 
         if (ShellExecuteExW(&sei)) {
@@ -169,7 +169,7 @@ bool InstallWebview2() {
     else {
         MessageBoxW(g_hMainWnd,
             L"请在管理员命令提示符中运行以下命令安装 WebView2 运行时:\n\n"
-            L"winget install --id Microsoft.EdgeWebView2Runtime -e --accept-source-agreements --accept-package-agreements",
+            L"winget install --id Microsoft.EdgeWebView2Runtime -e --accept-source-agreements --accept-package-agreements --source winget",
             L"手动安装说明", MB_OK | MB_ICONINFORMATION);
         LogMessage(L"已显示 WebView2 手动安装命令");
         return false;
